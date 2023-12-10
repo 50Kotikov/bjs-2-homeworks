@@ -1,6 +1,14 @@
 function Student(name, gender, age) {
-  
+    return {
+        name,
+        gender,
+        age,
+        marks: [],
+    };  
 }
+
+new Student();
+
 
 Student.prototype.setSubject = function (subjectName) {
   
