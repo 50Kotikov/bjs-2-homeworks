@@ -11,21 +11,20 @@ class PrintEditionItem {
     };
 
     get state() {
-        return this.state = this.newState;
+        return this.newState;
     };
 
-    set state(value){
-        let newState;
-        if (value < 0){
-            this.newState = 0;
+   set state(value){
+           let newState;
+           if (value < 0){
+           this.newState = 0;
         }else if (value > 100){
             this.newState = 100
         }else{this.newState = value};
     };
-
-}
-
-
+};   
+    
+   
 class Magazine extends PrintEditionItem {
     constructor(name, releaseDate, pagesCount) {
         super(name, releaseDate, pagesCount);
@@ -75,25 +74,67 @@ class Library {
     };
 
     findBookBy(type, value) {
-        let findType = type;
-        for(let i = 0; i < this.books.length; i++) {
-            if(this.books[i].hasOwnProperty("findType") === true && this.books[i][findType] === value) {
-                return this.books[i];
-            } else {
-                return null;
-            };
+            return this.books.find(book => book[type] === value) || null
         };
-    };
+    
 
     giveBookByName(bookName) {
-        for(let i = 0; i < this.books.length; i++) {
-            if(this.books[i].name === bookName) {
-                delete this.books[i];
-                return this.books[i];
-            } else {
-                return null;
-            };
-        };
-    };
+        let readersBook = this.findBookBy("name", bookName);
+            if (readersBook !== null) {
+              this.books.splice(this.books.indexOf(readersBook), 1);
+            }
+            return readersBook;
+          }
 };
+
+
+
+const library = new Library("Библиотека № 3 им. Тютчева");
+
+ library.addBook(
+  new NovelBook(
+    "Вашингтон Ирвин",
+    "Легенда о сонной лощине и другие рассказы",
+    2005,
+    130
+  )
+);
+
+library.addBook(
+    new DetectiveBook(
+      "Сергей Петрушкин",
+      "Как мы на рыбалку сходили",
+      1919,
+      270
+    )
+  );
+
+library.addBook(
+  new Magazine(
+    "VOUGE",
+    2023,
+    75
+  )
+);
+
+console.log(library.findBookBy("releaseDate", 1919).name);
+
+console.log("Количество книг до выдачи: " + library.books.length);
+
+let readersBook = library.giveBookByName("Легенда о сонной лощине и другие рассказы");
+
+console.log(readersBook);
+
+readersBook.state = 40;
+
+console.log(readersBook);
+
+readersBook.fix();
+
+console.log(readersBook);
+
+library.addBook(readersBook);
+
+console.log(library);
+
 
