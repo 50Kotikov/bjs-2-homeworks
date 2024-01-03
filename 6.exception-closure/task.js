@@ -2,7 +2,7 @@
 
 function parseCount(number){
     let findNumber = parseFloat(number);
-    if(Number.isNaN(findNumber) === true){
+    if(Number.isNaN(findNumber)){
         throw new Error("Невалидное значение");
     }
     return findNumber;
@@ -25,22 +25,21 @@ class Triangle{
         this.sideOne = sideOne;
         this.sideTwo = sideTwo;
         this.sideThree = sideThree;
-        if(this.sideOne + this.sideTwo < this.sideThree || this.sideOne + this.sideThree < this.sideTwo || this.sideTwo + this.sideThree < this.sideOne){
+        if(sideOne + sideTwo < sideThree || sideOne + sideThree < sideTwo || sideTwo + sideThree < sideOne){
              throw new Error("Треугольник с такими сторонами не существует");
             };
         };
    
 
     get perimeter(){
-        this.trianglePer = this.sideOne + this.sideTwo + this.sideThree;
-        return this.trianglePer;
+            return this.sideOne + this.sideTwo + this.sideThree;
     };
 
     get area(){
-        this.haifTrianglePer = this.trianglePer / 2;
-        this.triangleAreaCorn = Math.sqrt(this.haifTrianglePer * (this.haifTrianglePer - this.sideOne) * (this.haifTrianglePer - this.sideTwo) * (this.haifTrianglePer - this.sideThree));
-        this.triangleArea = this.triangleAreaCorn.toFixed(3);
-        return parseFloat(this.triangleArea);
+        let trianglePer = this.sideOne + this.sideTwo + this.sideThree;
+        let haifTrianglePer = trianglePer / 2;
+        let triangleAreaCorn = Math.sqrt(haifTrianglePer * (haifTrianglePer - this.sideOne) * (haifTrianglePer - this.sideTwo) * (haifTrianglePer - this.sideThree));
+        return parseFloat(triangleAreaCorn.toFixed(3));
     };
 };
 
